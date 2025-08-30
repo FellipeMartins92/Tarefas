@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Home</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+  {% include 'partials/Header.html' %}
+
+<div class="container py-4">
+  <div class="row g-4">
+
+    <div class="col-md-6">
+      <div class="card shadow-sm h-100">
+        <div class="card-body d-flex flex-column justify-content-center align-items-center">
+          <h5 class="card-title">📄 Listar Tarefas</h5>
+          <p class="card-text text-center">Veja todas as tarefas registradas no sistema.</p>
+          <a href="{% url 'Listar' %}" class="btn btn-primary">Acessar</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card shadow-sm h-100">
+        <div class="card-body d-flex flex-column justify-content-center align-items-center">
+          <h5 class="card-title">✏️ Cadastrar Tarefa</h5>
+          <p class="card-text text-center">Adicione novas tarefas ao sistema, com anexos.</p>
+          <a href="{% url 'Cadastro' %}" class="btn btn-success">Cadastrar</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
