@@ -15,29 +15,33 @@
   <div class="container py-4">
     <h1 class="mb-4 text-center">📋 Lista de Tarefas</h1>
 
-    <!-- Botão para nova tarefa -->
-    <div class="d-flex justify-content-end mb-3">
-      <a href="{% url 'Cadastro' %}" class="btn btn-primary">➕ Nova Tarefa</a>
+    <div class="row g-3 mb-3 align-items-end">
+
+      <!-- Filtro por status -->
+      <div class="col-md-8">
+        <form method="get" class="row g-2 align-items-end">
+          <div class="col-sm-9">
+            <label for="status" class="form-label mb-1">Filtrar por Status:</label>
+            <select name="status" id="status" class="form-select">
+              <option value="todos">Todos</option>
+              {% for s in status_list %}
+                <option value="{{ s.id }}" {% if status_filter|default:"todos" == s.id|stringformat:"s" %}selected{% endif %}>
+                  {{ s.DESCRICAO }}
+                </option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-sm-3 col-auto align-self-end d-grid">
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+          </div>
+        </form>
+      </div>
+    
+      <!-- Botão Nova Tarefa -->
+      <div class="col-md-4 text-md-end">
+        <a href="{% url 'Cadastro' %}" class="btn btn-success w-100 w-md-auto">➕ Nova Tarefa</a>
+      </div>
     </div>
-
-<!-- Filtro por status -->
-<form method="get" class="row g-3 mb-3">
-  <div class="col-auto">
-    <label for="status" class="form-label">Filtrar por Status:</label>
-    <select name="status" id="status" class="form-select">
-      <option value="todos">Todos</option>
-      {% for s in status_list %}
-        <option value="{{ s.id }}" {% if status_filter|default:"todos" == s.id|stringformat:"s" %}selected{% endif %}>
-          {{ s.DESCRICAO }}
-        </option>
-      {% endfor %}
-    </select>
-  </div>
-  <div class="col-auto align-self-end">
-    <button type="submit" class="btn btn-primary">Filtrar</button>
-  </div>
-</form>
-
 
     <!-- Tabela de tarefas -->
     <div class="card shadow-sm rounded-3">
@@ -58,14 +62,14 @@
                 <td>{{ tarefa.id }}</td>
                 <td>{{ tarefa.DESCRICAO }}</td>
                 <td>
-                  {% if tarefa.STATUS.nome %}
+                  {% if tarefa.STATUS.DESCRICAO %}
                     <span class="badge bg-info text-dark">{{ tarefa.STATUS.DESCRICAO }}</span>
                   {% else %}
                     <span class="badge bg-secondary">Sem status</span>
                   {% endif %}
                 </td>
                 <td>
-                  {% if tarefa.PRIORIDADE.nome %}
+                  {% if tarefa.PRIORIDADE.DESCRICAO %}
                     <span class="badge bg-warning text-dark">{{ tarefa.PRIORIDADE.DESCRICAO }}</span>
                   {% else %}
                     <span class="badge bg-secondary">Sem prioridade</span>
